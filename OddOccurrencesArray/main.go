@@ -10,17 +10,19 @@ func Solution(A []int) int {
 	matchs := make([]bool, max, max)
 	found := 0
 
-	for i := 0; i < max || found == max; i++ {
+outter:
+	for i := 0; i < max && found < max-1; i++ {
 		if matchs[i] {
 			continue
 		}
-		for j := i + 1; j < max || found == max; j++ {
+		for j := i + 1; j < max && found < max-1; j++ {
 			if matchs[j] {
 				continue
 			}
 			if A[i] == A[j] {
-				found++
+				found += 2
 				matchs[i], matchs[j] = true, true
+				continue outter
 			}
 		}
 	}
